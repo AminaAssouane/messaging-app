@@ -1,9 +1,22 @@
 const { Router } = require("express");
 const conversationRouter = Router();
 const conversationController = require("../controllers/conversationController.js");
+const authMiddleware = require("../middleware/authMiddleware");
 
-conversationRouter.get("/", conversationController.getConversations);
-conversationRouter.get("/:id/messages", conversationController.getMessages);
-conversationRouter.post("/:id/messages", conversationController.postMessages);
+conversationRouter.get(
+  "/",
+  authMiddleware,
+  conversationController.getConversations,
+);
+conversationRouter.get(
+  "/:id/messages",
+  authMiddleware,
+  conversationController.getMessages,
+);
+conversationRouter.post(
+  "/:id/messages",
+  authMiddleware,
+  conversationController.postMessages,
+);
 
 module.exports = conversationRouter;
