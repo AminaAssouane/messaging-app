@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", authRouter);
+app.use("/conversations", conversationRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(3000, (error) => {
