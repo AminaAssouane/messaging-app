@@ -17,5 +17,56 @@ model User {
   username  String   @unique
   email     String   @unique
   password  String
+
+  messages  Message[]
+  memberships ConversationMember[]
+
   createdAt DateTime @default(now())
+}
+
+model Conversation {
+  id            Int      @id @default(autoincrement())
+  type          ConversationType
+  name          String?
+  ownerId       Int?
+  lastMessageAt DateTime?
+
+  members       ConversationMember[]
+  messages      Message[]
+
+  createdAt     DateTime @default(now())
+}
+
+model ConversationMember {
+  id             Int @id @default(autoincrement())
+  conversationId Int
+  userId         Int
+  role           MemberRole
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  user           User @relation(fields: [userId], references: [id])
+}
+
+model Message {
+  id             Int @id @default(autoincrement())
+  conversationId Int
+  senderId       Int
+  content        String
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  sender         User @relation(fields: [senderId], references: [id])
+
+  createdAt      DateTime @default(now())
+}
+
+enum ConversationType {
+  PRIVATE
+  GROUP
+  GLOBAL
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
