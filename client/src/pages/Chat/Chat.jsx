@@ -62,13 +62,27 @@ export default function Chat() {
     return () => socket.off("receive_message", handleReceive);
   }, [selectedConversation]);
 
-  function sendMessage(content) {
+  async function sendMessage(content) {
     if (!selectedConversation || !content) return;
 
-    socket.emit("send_message", {
-      conversationId: selectedConversation.id,
-      content,
-    });
+    try {
+      // 1️⃣ Save message in database via API
+      const res = await api.post(
+        `/conversations/${selectedConversation.id}/messages`,
+        {
+          content,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      const message = res.data;
+
+      socket.emit("send_message", message);
+      setMessages((prev) => [...prev, message]);
+    } catch (error) {
+      console.error("Failed to send message", error);
+    }
   }
 
   return (
