@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import styles from "./Login.module.css";
 
-export function Login() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
