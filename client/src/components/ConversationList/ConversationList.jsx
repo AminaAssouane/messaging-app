@@ -1,8 +1,4 @@
-export default function ConversationList({
-  conversations,
-  selected,
-  onSelect,
-}) {
+export default function ConversationList({ conversations, onSelect }) {
   return (
     <div>
       {conversations.map((conv) => (
