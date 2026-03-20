@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import styles from "./Login.module.css";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -12,6 +14,7 @@ export function Login() {
       const res = await api.post("/auth/login", { username, password });
       localStorage.setItem("token", res.data.token);
       console.log("Logged in!");
+      navigate("/chat");
     } catch (error) {
       console.error(error.response?.data || error.message);
     }
