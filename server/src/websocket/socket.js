@@ -13,34 +13,8 @@ function initSockets(io) {
       console.log(`Socket ${socket.id} joined conversation ${conversationId}`);
     });
 
-    socket.on("send_message", async (data) => {
-      const { senderId, content } = data;
-      const conversationId = Number(data.conversationId);
-
-      if (!content || !conversationId) return;
-
-      const message = await prisma.message.create({
-        data: {
-          conversationId,
-          senderId,
-          content,
-        },
-        include: {
-          sender: {
-            select: {
-              id: true,
-              username: true,
-            },
-          },
-        },
-      });
-
-      await prisma.conversation.update({
-        where: { id: conversationId },
-        data: { lastMessageAt: new Date() },
-      });
-
-      io.to(conversationId).emit("receive_message", message);
+    socket.on("send_message", (message) => {
+      io.to(message.conversationId).emit("receive_message", message);
     });
 
     socket.on("disconnect", () => {

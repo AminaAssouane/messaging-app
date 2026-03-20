@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ConversationList from "../components/ConversationList";
-import MessageList from "../components/MessageList";
-import MessageInput from "../components/MessageInput";
-import socket from "../services/socket";
-import api from "../services/api";
+import ConversationList from "../../components/ConversationList/ConversationList";
+import MessageList from "../../components/MessageList/MessageList";
+import MessageInput from "../../components/MessageInput/MessageInput";
+import socket from "../../services/socket";
+import api from "../../services/api";
 
 export default function Chat() {
   const [conversations, setConversations] = useState([]);
@@ -66,7 +66,6 @@ export default function Chat() {
     if (!selectedConversation || !content) return;
 
     try {
-      // 1️⃣ Save message in database via API
       const res = await api.post(
         `/conversations/${selectedConversation.id}/messages`,
         {
@@ -79,7 +78,10 @@ export default function Chat() {
       const message = res.data;
 
       socket.emit("send_message", message);
-      setMessages((prev) => [...prev, message]);
+      /*setMessages((prev) => {
+        if (prev.some((m) => m.id === message.id)) return prev;
+        return [...prev, message];
+      });*/
     } catch (error) {
       console.error("Failed to send message", error);
     }
