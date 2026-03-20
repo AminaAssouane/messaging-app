@@ -5,6 +5,7 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const authRouter = require("./routes/authRouter");
 const conversationRouter = require("./routes/conversationRouter");
+const initSockets = require("./websocket/socket");
 
 const app = express();
 const server = http.createServer(app);
@@ -21,6 +22,8 @@ const io = new Server(server, {
     origin: "*",
   },
 });
+
+initSockets(io);
 
 const PORT = process.env.PORT || 3000;
 server.listen(3000, (error) => {
