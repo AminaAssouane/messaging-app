@@ -27,10 +27,6 @@
   font-weight: bolder;
 }
 
-.swan {
-  height: 30px;
-}
-
 .header .right {
   display: flex;
   align-items: center;
@@ -61,6 +57,10 @@
 
 .header .loginBtn:hover {
   color: var(--primary-hover);
+}
+
+.swan {
+  height: 30px;
 }
 
 /* MAIN */

@@ -1,9 +1,28 @@
-export default function ConversationList({ conversations, onSelect }) {
+import styles from "./ConversationList.module.css";
+import { UserRound, UsersRound } from "lucide-react";
+
+export default function ConversationList({
+  conversations,
+  onSelect,
+  selectedConversation,
+}) {
   return (
-    <div>
+    <div className={styles.conversationList}>
+      <div className={styles.title}>Conversations</div>
       {conversations.map((conv) => (
-        <div key={conv.id} onClick={() => onSelect(conv)}>
-          {conv.name || "Private Chat"}
+        <div
+          key={conv.id}
+          className={`${styles.conversation} ${selectedConversation?.id === conv.id ? styles.active : ""}`}
+          onClick={() => onSelect(conv)}
+        >
+          <div className={styles.avatar}>
+            {conv.type === "PRIVATE" ? (
+              <UserRound className={styles.icon} />
+            ) : (
+              <UsersRound className={styles.icon} />
+            )}
+          </div>
+          <div className={styles.name}>{conv.name || "Private Chat"}</div>
         </div>
       ))}
     </div>

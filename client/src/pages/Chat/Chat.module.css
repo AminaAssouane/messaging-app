@@ -1,0 +1,46 @@
+.chat {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sideBar {
+  background-color: var(--chat-background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  width: 250px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sideBar .title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--primary);
+  font-size: 1.3rem;
+  font-weight: bolder;
+  margin: 20px;
+}
+
+.swan {
+  height: 30px;
+}
+
+.themeSwitcher {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  width: fit-content;
+  height: fit-content;
+  margin: auto auto 20px auto;
+}
+
+/* MAIN */
+.main {
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 20px;
+}

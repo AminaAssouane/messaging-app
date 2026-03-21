@@ -2,7 +2,7 @@ import styles from "./ThemeSwitcher.module.css";
 import { Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
 
-export default function ThemeSwitcher() {
+export default function ThemeSwitcher({ className }) {
   const [theme, setTheme] = useState("dark");
 
   function handleTheme(theme) {
@@ -16,7 +16,7 @@ export default function ThemeSwitcher() {
   }, []);
 
   return (
-    <div className={styles.themeSwitcher}>
+    <div className={`${styles.themeSwitcher} ${className || ""}`}>
       <button
         className={theme === "dark" ? styles.active : ""}
         onClick={() => handleTheme("dark")}

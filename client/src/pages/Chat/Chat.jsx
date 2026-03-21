@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import ConversationList from "../../components/ConversationList/ConversationList";
 import MessageList from "../../components/MessageList/MessageList";
 import MessageInput from "../../components/MessageInput/MessageInput";
+import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
 import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
+import styles from "./Chat.module.css";
+import swan from "../../assets/icons/swan.svg";
 
 export default function Chat() {
   const [conversations, setConversations] = useState([]);
@@ -99,15 +102,24 @@ export default function Chat() {
   }, []);
 
   return (
-    <div>
-      <ConversationList
-        conversations={conversations}
-        onSelect={setSelectedConversation}
-      />
-      <div>
+    <div className={styles.chat}>
+      <aside className={styles.sideBar}>
+        <div className={styles.title}>
+          {" "}
+          <img src={swan} alt="icon" className={styles.swan} />
+          <div>Swan</div>
+        </div>
+        <ConversationList
+          conversations={conversations}
+          onSelect={setSelectedConversation}
+          selectedConversation={selectedConversation}
+        />
+        <ThemeSwitcher className={styles.themeSwitcher} />
+      </aside>
+      <main className={styles.main}>
         <MessageList messages={messages} />
         <MessageInput onSend={sendMessage} />
-      </div>
+      </main>
     </div>
   );
 }

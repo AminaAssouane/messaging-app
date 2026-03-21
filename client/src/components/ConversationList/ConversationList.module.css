@@ -1,0 +1,44 @@
+.conversationList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding: 20px 0px;
+}
+
+.conversationList .title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--secondary);
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+.conversation {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 10px;
+  margin: 0 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.conversation.active {
+  background-color: var(--secondary-background);
+}
+
+.conversation:hover {
+  background-color: var(--secondary-hover);
+}
+
+.conversation .icon {
+  color: var(--primary);
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  background-color: var(--primary-background);
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+}
