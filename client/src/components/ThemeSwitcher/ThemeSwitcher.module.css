@@ -1,0 +1,21 @@
+.themeSwitcher {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.themeSwitcher button {
+  background: none;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--foreground);
+}
+
+.themeSwitcher button.active {
+  background-color: var(--active-background);
+}
