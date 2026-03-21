@@ -1,6 +1,7 @@
 import styles from "./LandingPage.module.css";
 import swan from "../../assets/icons/swan.svg";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
@@ -12,8 +13,12 @@ export default function LandingPage() {
         </div>
         <nav className={styles.right}>
           <ThemeSwitcher />
-          <button className={styles.loginBtn}>Login</button>
-          <button className={styles.signUpBtn}>Sign Up</button>
+          <button className={styles.loginBtn}>
+            <Link to="/login">Login</Link>
+          </button>
+          <button className={styles.signUpBtn}>
+            <Link to="/register">Sign Up</Link>
+          </button>
         </nav>
       </header>
       <main className={styles.main}>
@@ -26,8 +31,12 @@ export default function LandingPage() {
           messaging for everyone, everywhere.
         </p>
         <div className={styles.buttons}>
-          <button className={styles.signUpBtn}>Get Started Free</button>
-          <button className={styles.loginBtn}>Login</button>
+          <button className={styles.signUpBtn}>
+            <Link to="/register">Get Started Free</Link>
+          </button>
+          <button className={styles.loginBtn}>
+            <Link to="/login">Login</Link>
+          </button>
         </div>
       </main>
       <footer className={`${styles.footer} secondary`}>
@@ -35,8 +44,24 @@ export default function LandingPage() {
         <div className={styles.right}>
           <span>Privacy</span>
           <span>Terms</span>
-          <span>Github</span>
-          <span>LinkedIn</span>
+          <span>
+            <a
+              href="https://github.com/AminaAssouane"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Github
+            </a>
+          </span>
+          <span>
+            <a
+              href="https://www.linkedin.com/in/amina-assouane/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+          </span>
         </div>
       </footer>
     </div>
