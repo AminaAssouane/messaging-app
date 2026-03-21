@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import "./index.css";
 import App from "./App.jsx";
 import Register from "./pages/Register/Register.jsx";
@@ -12,7 +13,14 @@ const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },
-  { path: "/chat", element: <Chat /> },
+  {
+    path: "/chat",
+    element: (
+      <ProtectedRoute>
+        <Chat />
+      </ProtectedRoute>
+    ),
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(

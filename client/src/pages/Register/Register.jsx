@@ -18,7 +18,7 @@ export default function Register() {
         password,
       });
       console.log(res.data);
-      navigate("/auth/login");
+      navigate("/login");
     } catch (error) {
       console.error(error.response?.data || error.message);
     }

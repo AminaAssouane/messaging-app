@@ -12,18 +12,22 @@
   --background: #ffffff;
   --foreground: #000000;
   --primary: #7c3aed;
+  --primary-hover: #8e3aff;
   --secondary: #55555f;
   --secondary-background: #f4f4f5;
   --border: #e4e4e7;
+  --active-background: #d3d3d4;
 }
 
 .dark {
   --background: #000000;
   --foreground: #ffffff;
   --primary: #8e51ff;
+  --primary-hover: #8e3aff;
   --secondary: #81818b;
   --secondary-background: #27272a;
   --border: #3d3d3f;
+  --active-background: #414144;
 }
 
 .secondary {
@@ -32,4 +36,8 @@
 
 .violet {
   color: var(--primary);
+}
+
+button {
+  border-radius: 8px;
 }
