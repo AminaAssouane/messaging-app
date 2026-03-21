@@ -18,8 +18,15 @@ export default function Chat() {
         const res = await api.get("/conversations", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setConversations(res.data);
-        if (res.data.length > 0) setSelectedConversation(res.data[0]);
+        const conversationsData = res.data;
+        setConversations(conversationsData);
+
+        const globalChat = conversationsData.find(
+          (conv) => conv.type === "GLOBAL",
+        );
+        if (globalChat) {
+          setSelectedConversation(globalChat);
+        }
       } catch (error) {
         console.error("Failed to fetch conversations:", error);
       }
