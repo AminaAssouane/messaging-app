@@ -46,7 +46,45 @@ async function sendFriendRequest(req, res) {
   }
 }
 
-async function acceptFriendRequest(req, res) {}
+/* upon accepting friend request, 
+we change the status of the request to ACCEPTED, 
+create a new private conversation, 
+and add both users to ConversationMember */
+async function acceptFriendRequest(req, res) {
+  const receiverId = req.user.userId;
+  const requestId = parseInt(req.params.id);
+  try {
+    const request = await prisma.friendRequest.findUnique({
+      where: { id: requestId },
+    });
+    await prisma.friendRequest.update(
+      { where: { id: requestId } },
+      { data: { status: "ACCEPTED" } },
+    );
+
+    const conversation = await prisma.conversation.create({
+      data: { type: "PRIVATE" },
+    });
+
+    await prisma.conversationMember.createMany({
+      data: [
+        { conversationId: conversation.id, role: "MEMBER", userId: receiverId },
+        {
+          conversationId: conversation.id,
+          role: "MEMBER",
+          userId: request.senderId,
+        },
+      ],
+    });
+
+    res.json({
+      message: "Friend request accepted!",
+      conversationId: conversation.id,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 async function rejectFriendRequest(req, res) {}
 
