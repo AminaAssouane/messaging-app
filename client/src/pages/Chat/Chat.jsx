@@ -3,6 +3,7 @@ import ConversationList from "../../components/ConversationList/ConversationList
 import MessageList from "../../components/MessageList/MessageList";
 import MessageInput from "../../components/MessageInput/MessageInput";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
+import Logout from "../../components/Logout/Logout";
 import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
 import styles from "./Chat.module.css";
@@ -14,6 +15,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
 
   const token = localStorage.getItem("token");
+  const user = JSON.parse(atob(token.split(".")[1]));
 
   useEffect(() => {
     async function fetchConversations() {
@@ -115,6 +117,15 @@ export default function Chat() {
           selectedConversation={selectedConversation}
         />
         <ThemeSwitcher className={styles.themeSwitcher} />
+        <div className={styles.logout}>
+          <div className={styles.userInfo}>
+            <div className={styles.avatar}>
+              {user.username[0].toUpperCase()}
+            </div>
+            <div className={styles.username}>{user.username}</div>
+          </div>
+          <Logout />
+        </div>
       </aside>
       <main className={styles.main}>
         <MessageList messages={messages} />

@@ -1,0 +1,11 @@
+.logoutBtn {
+  color: red;
+  border: none;
+  width: fit-content;
+  padding: 5px;
+  background-color: var(--secondary-background);
+}
+.logoutBtn:hover {
+  cursor: pointer;
+  background-color: var(--active-background);
+}

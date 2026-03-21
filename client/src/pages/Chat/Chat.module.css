@@ -38,6 +38,39 @@
   margin: auto auto 20px auto;
 }
 
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 10px 20px 10px;
+  padding: 7px 10px;
+  background-color: var(--secondary-background);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  background-color: var(--chat-background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
 /* MAIN */
 .main {
   background-color: var(--background);
