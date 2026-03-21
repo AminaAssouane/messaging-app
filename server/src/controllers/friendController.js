@@ -109,7 +109,29 @@ async function rejectFriendRequest(req, res) {
   }
 }
 
-async function getFriends(req, res) {}
+async function getFriends(req, res) {
+  const userId = req.user.userId;
+  try {
+    const requests = await prisma.friendRequest.findMany({
+      where: {
+        status: "ACCEPTED",
+        OR: [{ senderId: userId }, { receiverId: userId }],
+      },
+      include: {
+        sender: { select: { id: true, username: true } },
+        receiver: { select: { id: true, username: true } },
+      },
+    });
+
+    const friends = requests.map((r) =>
+      r.senderId === userId ? r.receiver : r.sender,
+    );
+
+    res.json(friends);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 module.exports = {
   getFriendRequests,
