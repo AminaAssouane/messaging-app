@@ -57,6 +57,9 @@ async function acceptFriendRequest(req, res) {
     const request = await prisma.friendRequest.findUnique({
       where: { id: requestId },
     });
+    if (!request || request.receiverId !== receiverId)
+      return res.status(403).json({ message: "Not allowed" });
+
     await prisma.friendRequest.update(
       { where: { id: requestId } },
       { data: { status: "ACCEPTED" } },
@@ -86,8 +89,32 @@ async function acceptFriendRequest(req, res) {
   }
 }
 
-async function rejectFriendRequest(req, res) {}
+async function rejectFriendRequest(req, res) {
+  const receiverId = req.user.userId;
+  const requestId = parseInt(req.params.id);
+  try {
+    const request = await prisma.friendRequest.findUnique({
+      where: { id: requestId },
+    });
+    if (!request || request.receiverId !== receiverId)
+      return res.status(403).json({ message: "Not allowed" });
+
+    await prisma.friendRequest.update({
+      where: { id: requestId },
+      data: { status: "REJECTED" },
+    });
+    res.json({ message: "Friend request rejected." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 async function getFriends(req, res) {}
 
-module.exports = { getFriendRequests, sendFriendRequest };
+module.exports = {
+  getFriendRequests,
+  sendFriendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  getFriends,
+};
