@@ -1,0 +1,41 @@
+.messageInput {
+  margin: 20px;
+
+  display: flex;
+  gap: 10px;
+}
+
+.messageInput input {
+  flex: 1;
+  background-color: var(--secondary-background);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  height: 50px;
+  color: var(--foreground);
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+.messageInput input:focus {
+  border: 1px solid var(--primary);
+  outline: none;
+}
+
+.messageInput button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background-color: var(--primary);
+  padding: 0px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  border-radius: 12px;
+  border: none;
+}
+
+.messageInput button:hover {
+  cursor: pointer;
+  background-color: var(--primary-hover);
+}

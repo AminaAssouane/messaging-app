@@ -8,7 +8,7 @@
   background-color: var(--chat-background);
   color: var(--foreground);
   border: 1px solid var(--border);
-  width: 250px;
+  flex: 1;
 
   display: flex;
   flex-direction: column;
@@ -58,22 +58,53 @@
   gap: 10px;
 }
 
-.avatar {
+.sideBar .avatar {
   background-color: var(--chat-background);
   color: var(--foreground);
   border: 1px solid var(--border);
   border-radius: 8px;
   width: 32px;
   height: 32px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
 }
 
 /* MAIN */
 .main {
   background-color: var(--background);
   color: var(--foreground);
-  padding: 20px;
+  flex: 4;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.main .title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  background-color: var(--chat-background);
+}
+
+.main .avatar {
+  color: var(--primary);
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  background-color: var(--primary-background);
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* FOOTER */

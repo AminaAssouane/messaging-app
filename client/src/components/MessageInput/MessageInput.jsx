@@ -1,6 +1,8 @@
 import { useState } from "react";
+import styles from "./MessageInput.module.css";
+import { Send } from "lucide-react";
 
-export default function MessageInput({ onSend }) {
+export default function MessageInput({ onSend, className }) {
   const [content, setContent] = useState("");
 
   function handleSend() {
@@ -14,14 +16,17 @@ export default function MessageInput({ onSend }) {
   }
 
   return (
-    <div>
+    <div className={`${styles.messageInput} ${className}`}>
       <input
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={handleKeyPress}
       />
-      <button onClick={handleSend}>Send</button>
+      <button onClick={handleSend}>
+        <Send />
+        Send
+      </button>
     </div>
   );
 }

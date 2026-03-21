@@ -8,6 +8,7 @@ import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
 import styles from "./Chat.module.css";
 import swan from "../../assets/icons/swan.svg";
+import { UserRound, UsersRound } from "lucide-react";
 
 export default function Chat() {
   const [conversations, setConversations] = useState([]);
@@ -128,8 +129,26 @@ export default function Chat() {
         </div>
       </aside>
       <main className={styles.main}>
-        <MessageList messages={messages} />
-        <MessageInput onSend={sendMessage} />
+        <div className={styles.title}>
+          <div className={styles.avatar}>
+            {selectedConversation?.type === "PRIVATE" ? (
+              <UserRound className={styles.icon} />
+            ) : (
+              <UsersRound className={styles.icon} />
+            )}
+          </div>
+          <div className={styles.name}>
+            {selectedConversation?.name || "Private Chat"}
+          </div>
+        </div>
+        <MessageList
+          messages={messages}
+          className={styles.messageListContainer}
+        />
+        <MessageInput
+          onSend={sendMessage}
+          className={styles.messageInputContainer}
+        />
       </main>
     </div>
   );
