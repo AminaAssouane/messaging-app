@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ConversationList from "../../components/ConversationList/ConversationList";
 import MessageList from "../../components/MessageList/MessageList";
 import MessageInput from "../../components/MessageInput/MessageInput";
-import socket from "../../services/socket";
+import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
 
 export default function Chat() {
@@ -44,11 +44,11 @@ export default function Chat() {
     fetchMessages();
 
     // join Socket.IO room
-    socket.emit("join_conversation", selectedConversation.id);
+    getSocket().emit("join_conversation", selectedConversation.id);
 
     // leave previous room on cleanup
     return () => {
-      socket.emit("leave_conversation", selectedConversation.id);
+      getSocket().emit("leave_conversation", selectedConversation.id);
     };
   }, [selectedConversation, token]);
 
@@ -58,8 +58,8 @@ export default function Chat() {
         setMessages((prev) => [...prev, message]);
       }
     }
-    socket.on("receive_message", handleReceive);
-    return () => socket.off("receive_message", handleReceive);
+    getSocket().on("receive_message", handleReceive);
+    return () => getSocket().off("receive_message", handleReceive);
   }, [selectedConversation]);
 
   async function sendMessage(content) {
@@ -77,7 +77,7 @@ export default function Chat() {
       );
       const message = res.data;
 
-      socket.emit("send_message", message);
+      getSocket().emit("send_message", message);
       /*setMessages((prev) => {
         if (prev.some((m) => m.id === message.id)) return prev;
         return [...prev, message];
@@ -86,6 +86,10 @@ export default function Chat() {
       console.error("Failed to send message", error);
     }
   }
+
+  useEffect(() => {
+    return () => disconnectSocket();
+  }, []);
 
   return (
     <div>
