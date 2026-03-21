@@ -1,6 +1,6 @@
 import styles from "./ThemeSwitcher.module.css";
 import { Moon, Sun } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState("dark");
@@ -10,6 +10,10 @@ export default function ThemeSwitcher() {
     document.documentElement.classList.add(theme);
     setTheme(theme);
   }
+
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
 
   return (
     <div className={styles.themeSwitcher}>
