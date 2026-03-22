@@ -28,6 +28,26 @@
   height: 30px;
 }
 
+.btnsContainer {
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.friendsTitle,
+.profileTitle {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.friendsTitle:hover,
+.profileTitle:hover {
+  background-color: var(--secondary-hover);
+}
+
 .themeSwitcher {
   display: flex;
   justify-content: center;

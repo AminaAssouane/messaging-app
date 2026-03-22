@@ -1,7 +1,7 @@
 .main {
   background-color: var(--background);
   color: var(--foreground);
-  flex: 4;
+  flex: 5;
 
   display: flex;
   flex-direction: column;

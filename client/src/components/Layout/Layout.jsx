@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import ConversationList from "../ConversationList/ConversationList";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import Logout from "../Logout/Logout";
@@ -34,6 +34,15 @@ export default function Layout() {
         <div className={styles.title}>
           <img src={swan} alt="icon" className={styles.swan} />
           <div>Swan</div>
+        </div>
+        <div className={styles.btnsContainer}>
+          <Link to="/friends" className={styles.friendsTitle}>
+            Friends
+          </Link>
+
+          <Link to="/profile" className={styles.profileTitle}>
+            Profile
+          </Link>
         </div>
         <ConversationList
           conversations={conversations}
