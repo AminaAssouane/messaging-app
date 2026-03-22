@@ -28,6 +28,7 @@ async function sendFriendRequest(req, res) {
           { senderId, receiverId: target.id },
           { senderId: target.id, receiverId: senderId },
         ],
+        status: { in: ["PENDING", "ACCEPTED"] },
       },
     });
     if (existing)
@@ -60,10 +61,10 @@ async function acceptFriendRequest(req, res) {
     if (!request || request.receiverId !== receiverId)
       return res.status(403).json({ message: "Not allowed" });
 
-    await prisma.friendRequest.update(
-      { where: { id: requestId } },
-      { data: { status: "ACCEPTED" } },
-    );
+    await prisma.friendRequest.update({
+      where: { id: requestId },
+      data: { status: "ACCEPTED" },
+    });
 
     const conversation = await prisma.conversation.create({
       data: { type: "PRIVATE" },
