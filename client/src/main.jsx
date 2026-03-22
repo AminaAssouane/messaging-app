@@ -8,6 +8,7 @@ import Register from "./pages/Register/Register.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Chat from "./pages/Chat/Chat.jsx";
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
+import FriendsPage from "./pages/FriendsPage/FriendsPage.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  { path: "/friends", element: <FriendsPage /> },
 ]);
 
 createRoot(document.getElementById("root")).render(
