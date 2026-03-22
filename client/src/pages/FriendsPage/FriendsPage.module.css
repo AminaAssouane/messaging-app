@@ -2,4 +2,37 @@
   flex: 5;
   background-color: var(--background);
   color: var(--foreground);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggle {
+  background-color: var(--toggle-friends-background);
+  padding: 5px;
+  margin-top: 40px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.activeTab,
+.tab {
+  padding: 10px 70px;
+  border-radius: 999px;
+}
+
+.tab {
+  color: var(--secondary);
+}
+
+.activeTab {
+  background-color: var(--background);
+  color: var(--foreground);
 }

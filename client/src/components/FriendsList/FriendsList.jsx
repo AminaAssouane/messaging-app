@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import { UsersRound } from "lucide-react";
+import styles from "./FriendsList.module.css";
 
 export default function FriendsList() {
   const [friends, setFriends] = useState([]);
@@ -12,7 +14,14 @@ export default function FriendsList() {
     fetchFriends();
   }, []);
 
-  if (friends.length === 0) return <p>No friends yet.</p>;
+  if (friends.length === 0)
+    return (
+      <div className={styles.noFriends}>
+        <UsersRound className={styles.icon} />
+        <p>No friends yet</p>
+        <p>Go to Requests to find people</p>
+      </div>
+    );
 
   return (
     <div className="friends-list">

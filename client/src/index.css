@@ -21,6 +21,8 @@
   --active-background: #d3d3d4;
   --chat-background: #fafafa;
   --input-background: #e4e4e7;
+  --toggle-friends-background: #e9e9e9;
+  --no-friends-second: #88888e;
 }
 
 .dark {
@@ -36,6 +38,8 @@
   --active-background: #414144;
   --chat-background: #18181b;
   --input-background: #1e1e1e;
+  --toggle-friends-background: #242427;
+  --no-friends-second: #5c5c62;
 }
 
 .secondary {
