@@ -1,0 +1,83 @@
+.loginContainer {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background-color: var(--chat-background);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px;
+  width: 440px;
+}
+
+.loginWrapper .title {
+  color: var(--primary);
+}
+
+.loginWrapper p {
+  color: var(--secondary);
+}
+
+.loginWrapper .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginWrapper label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.loginWrapper input {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 5px 0px 15px 0px;
+  padding-left: 10px;
+  color: var(--foreground);
+  background-color: var(--input-background);
+  height: 2.5rem;
+  font-size: 16px;
+}
+
+.loginWrapper input:focus {
+  outline: none;
+  border: 1px solid var(--primary);
+}
+
+.loginWrapper button {
+  height: 2.5rem;
+  margin-top: 15px;
+  border-radius: 12px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.loginWrapper button:hover {
+  cursor: pointer;
+  background-color: var(--primary-hover);
+}
+
+.loginWrapper .footer {
+  font-size: 14px;
+  text-align: center;
+}
+
+.loginWrapper a {
+  color: var(--primary);
+}
+.loginWrapper a:hover {
+  text-decoration: underline;
+}

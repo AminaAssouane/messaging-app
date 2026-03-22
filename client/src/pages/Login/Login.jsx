@@ -21,26 +21,33 @@ export default function Login() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username : </label>
-        <input
-          type="text"
-          id="username"
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password : </label>
-        <input
-          type="password"
-          id="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
-    </>
+    <div className={styles.loginContainer}>
+      <div className={styles.loginWrapper}>
+        <h2 className={styles.title}>Welcome back!</h2>
+        <p>Login to continue your chats.</p>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
+        </form>
+        <div className={styles.footer}>
+          Don't have an account? <a href="/register">Sign Up</a>
+        </div>
+      </div>
+    </div>
   );
 }

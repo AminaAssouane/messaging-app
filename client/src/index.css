@@ -20,6 +20,7 @@
   --border: #e4e4e7;
   --active-background: #d3d3d4;
   --chat-background: #fafafa;
+  --input-background: #e4e4e7;
 }
 
 .dark {
@@ -34,6 +35,7 @@
   --border: #3d3d3f;
   --active-background: #414144;
   --chat-background: #18181b;
+  --input-background: #1e1e1e;
 }
 
 .secondary {
