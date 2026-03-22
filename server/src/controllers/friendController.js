@@ -36,7 +36,7 @@ async function sendFriendRequest(req, res) {
     const request = await prisma.friendRequest.create({
       data: {
         senderId,
-        receiverId: targetId,
+        receiverId: target.id,
         status: "PENDING",
       },
     });
