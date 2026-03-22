@@ -74,4 +74,18 @@ async function inviteMember(req, res) {
   }
 }
 
-module.exports = { createGroup, inviteMember };
+async function getMembers(req, res) {
+  const conversationId = req.params.id;
+  try {
+    const members = await prisma.conversationMember.findMany({
+      where: { conversationId },
+      include: { user: { select: { id: true, username: true } } },
+    });
+    res.json(members);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed fetching members" });
+  }
+}
+
+module.exports = { createGroup, inviteMember, getMembers };
