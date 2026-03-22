@@ -88,4 +88,32 @@ async function getMembers(req, res) {
   }
 }
 
-module.exports = { createGroup, inviteMember, getMembers };
+async function removeMember(req, res) {
+  const { id: conversationId, userId: targetUserId } = req.params;
+  const requesterId = req.user.userId;
+
+  try {
+    const requester = await requireRole(
+      conversationId,
+      requesterId,
+      "OWNER",
+      "ADMIN",
+    );
+    if (!requester) return res.status(403).json({ error: "Not authorized" });
+
+    const target = await prisma.conversationMember.findFirst({
+      where: { conversationId, userId: targetUserId },
+    });
+    if (!target) return res.status(404).json({ error: "Member not found" });
+    if (target.role === "OWNER")
+      return res.status(403).json({ error: "Cannot remove the owner" });
+
+    await prisma.conversationMember.delete({ where: { id: target.id } });
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to remove member" });
+  }
+}
+
+module.exports = { createGroup, inviteMember, getMembers, removeMember };
