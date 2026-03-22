@@ -10,6 +10,8 @@ import Chat from "./pages/Chat/Chat.jsx";
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import FriendsPage from "./pages/FriendsPage/FriendsPage.jsx";
 import Layout from "./components/Layout/Layout.jsx";
+import FriendsList from "./components/FriendsList/FriendsList.jsx";
+import FriendRequests from "./components/FriendRequests/FriendRequests.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
@@ -23,7 +25,14 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "/chat", element: <Chat /> },
-      { path: "/friends", element: <FriendsPage /> },
+      {
+        path: "/friends",
+        element: <FriendsPage />,
+        children: [
+          { index: true, element: <FriendsList /> },
+          { path: "requests", element: <FriendRequests /> },
+        ],
+      },
     ],
   },
 ]);
