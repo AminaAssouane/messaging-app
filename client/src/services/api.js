@@ -21,4 +21,18 @@ api.interceptors.response.use(
   },
 );
 
+// --- Group API ---
+
+export const createGroup = (name, memberIds) =>
+  api.post("/groups", { name, memberIds }).then((r) => r.data);
+
+export const inviteMember = (groupId, userId) =>
+  api.post(`/groups/${groupId}/invite`, { userId }).then((r) => r.data);
+
+export const getGroupMembers = (groupId) =>
+  api.get(`/groups/${groupId}/members`).then((r) => r.data);
+
+export const removeMember = (groupId, userId) =>
+  api.delete(`/groups/${groupId}/members/${userId}`).then((r) => r.data);
+
 export default api;
