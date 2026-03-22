@@ -1,44 +1,26 @@
 import { useEffect, useState } from "react";
-import ConversationList from "../../components/ConversationList/ConversationList";
+import { useOutletContext } from "react-router-dom";
 import MessageList from "../../components/MessageList/MessageList";
 import MessageInput from "../../components/MessageInput/MessageInput";
-import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
-import Logout from "../../components/Logout/Logout";
 import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
 import styles from "./Chat.module.css";
-import swan from "../../assets/icons/swan.svg";
 import { UserRound, UsersRound } from "lucide-react";
 
 export default function Chat() {
-  const [conversations, setConversations] = useState([]);
-  const [selectedConversation, setSelectedConversation] = useState(null);
+  const { conversations, selectedConversation, setSelectedConversation } =
+    useOutletContext();
   const [messages, setMessages] = useState([]);
 
   const token = localStorage.getItem("token");
-  const user = JSON.parse(atob(token.split(".")[1]));
 
   useEffect(() => {
-    async function fetchConversations() {
-      try {
-        const res = await api.get("/conversations", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const conversationsData = res.data;
-        setConversations(conversationsData);
-
-        const globalChat = conversationsData.find(
-          (conv) => conv.type === "GLOBAL",
-        );
-        if (globalChat) {
-          setSelectedConversation(globalChat);
-        }
-      } catch (error) {
-        console.error("Failed to fetch conversations:", error);
-      }
+    if (!conversations.length) return;
+    const globalChat = conversations.find((conv) => conv.type === "GLOBAL");
+    if (globalChat && !selectedConversation) {
+      setSelectedConversation(globalChat);
     }
-    fetchConversations();
-  }, [token]);
+  }, [conversations]);
 
   useEffect(() => {
     if (!selectedConversation) return;
@@ -56,13 +38,9 @@ export default function Chat() {
     }
     fetchMessages();
 
-    // join Socket.IO room
     getSocket().emit("join_conversation", selectedConversation.id);
-
-    // leave previous room on cleanup
-    return () => {
+    return () =>
       getSocket().emit("leave_conversation", selectedConversation.id);
-    };
   }, [selectedConversation, token]);
 
   useEffect(() => {
@@ -77,24 +55,13 @@ export default function Chat() {
 
   async function sendMessage(content) {
     if (!selectedConversation || !content) return;
-
     try {
       const res = await api.post(
         `/conversations/${selectedConversation.id}/messages`,
-        {
-          content,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
+        { content },
+        { headers: { Authorization: `Bearer ${token}` } },
       );
-      const message = res.data;
-
-      getSocket().emit("send_message", message);
-      /*setMessages((prev) => {
-        if (prev.some((m) => m.id === message.id)) return prev;
-        return [...prev, message];
-      });*/
+      getSocket().emit("send_message", res.data);
     } catch (error) {
       console.error("Failed to send message", error);
     }
@@ -105,51 +72,21 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className={styles.chat}>
-      <aside className={styles.sideBar}>
-        <div className={styles.title}>
-          {" "}
-          <img src={swan} alt="icon" className={styles.swan} />
-          <div>Swan</div>
+    <main className={styles.main}>
+      <div className={styles.title}>
+        <div className={styles.avatar}>
+          {selectedConversation?.type === "PRIVATE" ? (
+            <UserRound className={styles.icon} />
+          ) : (
+            <UsersRound className={styles.icon} />
+          )}
         </div>
-        <ConversationList
-          conversations={conversations}
-          onSelect={setSelectedConversation}
-          selectedConversation={selectedConversation}
-        />
-        <ThemeSwitcher className={styles.themeSwitcher} />
-        <div className={styles.logout}>
-          <div className={styles.userInfo}>
-            <div className={styles.avatar}>
-              {user.username[0].toUpperCase()}
-            </div>
-            <div className={styles.username}>{user.username}</div>
-          </div>
-          <Logout />
+        <div className={styles.name}>
+          {selectedConversation?.name || "Private Chat"}
         </div>
-      </aside>
-      <main className={styles.main}>
-        <div className={styles.title}>
-          <div className={styles.avatar}>
-            {selectedConversation?.type === "PRIVATE" ? (
-              <UserRound className={styles.icon} />
-            ) : (
-              <UsersRound className={styles.icon} />
-            )}
-          </div>
-          <div className={styles.name}>
-            {selectedConversation?.name || "Private Chat"}
-          </div>
-        </div>
-        <MessageList
-          messages={messages}
-          className={styles.messageListContainer}
-        />
-        <MessageInput
-          onSend={sendMessage}
-          className={styles.messageInputContainer}
-        />
-      </main>
-    </div>
+      </div>
+      <MessageList messages={messages} />
+      <MessageInput onSend={sendMessage} />
+    </main>
   );
 }

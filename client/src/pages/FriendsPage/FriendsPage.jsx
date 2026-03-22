@@ -11,7 +11,7 @@ export default function FriendsPage() {
   }
 
   return (
-    <div className="friends-page">
+    <div className="friendsPage">
       <h2>Friends</h2>
       <FriendSearch />
       <hr />
