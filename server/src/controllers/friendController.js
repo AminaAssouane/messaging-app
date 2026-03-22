@@ -3,9 +3,9 @@ const prisma = require("../lib/prisma");
 async function getFriendRequests(req, res) {
   const userId = req.user.userId;
   try {
-    const requests = prisma.friendRequest.findMany({
+    const requests = await prisma.friendRequest.findMany({
       where: { receiverId: userId, status: "PENDING" },
-      include: { sender: { include: { id: true, username: true } } },
+      include: { sender: { select: { id: true, username: true } } },
     });
     res.json(requests);
   } catch (error) {

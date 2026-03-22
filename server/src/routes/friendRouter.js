@@ -10,7 +10,7 @@ friendRouter.get(
 );
 
 friendRouter.post(
-  "/requests",
+  "/request",
   authMiddleware,
   friendController.sendFriendRequest,
 );
