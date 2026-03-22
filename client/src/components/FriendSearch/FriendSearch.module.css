@@ -1,0 +1,80 @@
+.friendSearch {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 50px;
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchWrapper input {
+  width: 350px;
+  height: 40px;
+  padding-left: 36px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background-color: var(--chat-background);
+  color: var(--foreground);
+}
+
+.searchWrapper input::placeholder {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.searchWrapper input:focus {
+  outline: none;
+  border: 1px solid var(--primary);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  color: var(--secondary);
+  pointer-events: none;
+}
+
+.searchIconFocused {
+  color: var(--primary);
+}
+
+.successMessage {
+  font-size: 14px;
+  font-weight: 500;
+  color: forestgreen;
+  text-align: center;
+  margin-top: 10px;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+li {
+  margin: 10px;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userPlusIcon {
+  padding: 5px 10px;
+  height: 30px;
+  width: auto;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 12px;
+}
+
+.userPlusIcon:hover {
+  cursor: pointer;
+  background-color: var(--primary-hover);
+}

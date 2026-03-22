@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import FriendSearch from "../FriendSearch/FriendSearch";
+import styles from "./FriendRequests.module.css";
 
 export default function FriendRequests({ onAccepted }) {
   const [requests, setRequests] = useState([]);
@@ -23,20 +25,29 @@ export default function FriendRequests({ onAccepted }) {
     setRequests((prev) => prev.filter((r) => r.id !== id));
   }
 
-  if (requests.length === 0) return <p>No pending requests.</p>;
+  if (requests.length === 0)
+    return (
+      <div>
+        <FriendSearch />
+        <p>No pending requests.</p>
+      </div>
+    );
 
   return (
-    <div className="friend-requests">
-      <h3>Friend Requests</h3>
-      <ul>
-        {requests.map((r) => (
-          <li key={r.id}>
-            <span>{r.sender.username}</span>
-            <button onClick={() => handleAccept(r.id)}>✔ Accept</button>
-            <button onClick={() => handleReject(r.id)}>❌ Reject</button>
-          </li>
-        ))}
-      </ul>
+    <div className={styles.friendRequestsContainer}>
+      <FriendSearch />
+      <div className="friend-requests">
+        <h3>Friend Requests</h3>
+        <ul>
+          {requests.map((r) => (
+            <li key={r.id}>
+              <span>{r.sender.username}</span>
+              <button onClick={() => handleAccept(r.id)}>✔ Accept</button>
+              <button onClick={() => handleReject(r.id)}>❌ Reject</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
