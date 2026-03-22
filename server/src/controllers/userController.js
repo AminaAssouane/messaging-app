@@ -1,7 +1,7 @@
 const prisma = require("../lib/prisma");
 
 async function searchUser(req, res) {
-  const username = req.query;
+  const { username } = req.query;
   if (!username) return res.json([]);
   try {
     const users = await prisma.user.findMany({
