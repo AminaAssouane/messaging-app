@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import FriendSearch from "../FriendSearch/FriendSearch";
 import styles from "./FriendRequests.module.css";
+import { Inbox, UserRound, Check, X } from "lucide-react";
 
 export default function FriendRequests({ onAccepted }) {
   const [requests, setRequests] = useState([]);
@@ -29,21 +30,35 @@ export default function FriendRequests({ onAccepted }) {
     return (
       <div>
         <FriendSearch />
-        <p>No pending requests.</p>
+        <div className={styles.noRequestsContainer}>
+          <Inbox className={styles.noRequestsIcon} />
+          <p>No pending requests</p>
+        </div>
       </div>
     );
 
   return (
     <div className={styles.friendRequestsContainer}>
       <FriendSearch />
-      <div className="friend-requests">
-        <h3>Friend Requests</h3>
+      <div className={styles.friendRequests}>
+        <h3>Pending Requests ({requests.length})</h3>
         <ul>
           {requests.map((r) => (
-            <li key={r.id}>
-              <span>{r.sender.username}</span>
-              <button onClick={() => handleAccept(r.id)}>✔ Accept</button>
-              <button onClick={() => handleReject(r.id)}>❌ Reject</button>
+            <li key={r.id} className={styles.friendRequest}>
+              <div className={styles.requestUser}>
+                <UserRound className={styles.userIcon} />
+                <div className={styles.requestInfo}>
+                  <span>{r.sender.username}</span>
+                  <p>sent you a friend request</p>
+                </div>
+              </div>
+              <div className={styles.requestButtons}>
+                <Check
+                  onClick={() => handleAccept(r.id)}
+                  className={styles.check}
+                />
+                <X onClick={() => handleReject(r.id)} className={styles.x} />
+              </div>
             </li>
           ))}
         </ul>
