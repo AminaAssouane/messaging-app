@@ -7,6 +7,7 @@ const authRouter = require("./routes/authRouter");
 const conversationRouter = require("./routes/conversationRouter");
 const friendRouter = require("./routes/friendRouter");
 const userRouter = require("./routes/userRouter");
+const groupRouter = require("./routes/groupRouter");
 const initSockets = require("./websocket/socket");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/auth", authRouter);
 app.use("/conversations", conversationRouter);
 app.use("/friends", friendRouter);
 app.use("/users", userRouter);
+app.use("/group", groupRouter);
 
 const io = new Server(server, {
   cors: {
