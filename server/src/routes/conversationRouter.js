@@ -23,4 +23,10 @@ conversationRouter.post(
   authMiddleware,
   conversationController.markRead,
 );
+conversationRouter.get(
+  "/unread",
+  authMiddleware,
+  conversationController.getUnread,
+);
+
 module.exports = conversationRouter;

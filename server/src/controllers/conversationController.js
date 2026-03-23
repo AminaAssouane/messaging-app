@@ -127,4 +127,41 @@ async function markRead(req, res) {
   res.json({ ok: true });
 }
 
-module.exports = { getConversations, getMessages, postMessages, markRead };
+// Get unread counts for all conversations this user is in
+async function getUnread(req, res) {
+  const userId = req.user.userId;
+
+  const memberships = await prisma.conversationMember.findMany({
+    where: { userId },
+    select: { conversationId: true },
+  });
+
+  const conversationIds = memberships.map((m) => m.conversationId);
+
+  const reads = await prisma.conversationRead.findMany({
+    where: { userId, conversationId: { in: conversationIds } },
+  });
+  const unreadCounts = await Promise.all(
+    conversationIds.map(async (conversationId) => {
+      const read = reads.find((r) => r.conversationId === conversationId);
+      const count = await prisma.message.count({
+        where: {
+          conversationId,
+          senderId: { not: userId },
+          createdAt: read ? { gt: read.lastReadAt } : undefined,
+        },
+      });
+      return { conversationId, count };
+    }),
+  );
+
+  res.json(unreadCounts);
+}
+
+module.exports = {
+  getConversations,
+  getMessages,
+  postMessages,
+  markRead,
+  getUnread,
+};
