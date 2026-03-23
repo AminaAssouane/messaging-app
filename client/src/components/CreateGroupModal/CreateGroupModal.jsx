@@ -14,9 +14,12 @@ export default function CreateGroupModal({ friends, onClose, onCreated }) {
   }
 
   async function handleSubmit() {
-    if (!name.trim()) return;
+    if (name.trim().length < 3 || name.trim().length > 20) {
+      setError("Group name must be 3–20 characters");
+      return;
+    }
     try {
-      const group = await createGroup(name, selected);
+      const group = await createGroup(name.trim(), selected);
       onCreated(group);
       onClose();
     } catch (err) {
@@ -25,32 +28,58 @@ export default function CreateGroupModal({ friends, onClose, onCreated }) {
   }
 
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>Create Group</h2>
-        {error && <p className="error">{error}</p>}
+        <div className={styles.header}>
+          <span>Create Group</span>
+        </div>
+
+        <label className={styles.label}>Group Name</label>
         <input
-          placeholder="Group name"
+          className={styles.input}
+          placeholder="Enter group name (3–20 characters)"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          maxLength={20}
+          onChange={(e) => {
+            setName(e.target.value);
+            setError("");
+          }}
         />
-        <p>Invite friends:</p>
-        <ul>
-          {friends.map((f) => (
-            <li key={f.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selected.includes(f.id)}
-                  onChange={() => toggleFriend(f.id)}
-                />
-                {f.username}
-              </label>
-            </li>
-          ))}
-        </ul>
-        <button onClick={handleSubmit}>Create</button>
-        <button onClick={onClose}>Cancel</button>
+        {error && <p className={styles.error}>{error}</p>}
+
+        {friends.length > 0 && (
+          <>
+            <label className={styles.label}>Invite Friends</label>
+            <ul className={styles.friendList}>
+              {friends.map((f) => (
+                <li
+                  key={f.id}
+                  className={`${styles.friendItem} ${
+                    selected.includes(f.id) ? styles.selected : ""
+                  }`}
+                  onClick={() => toggleFriend(f.id)}
+                >
+                  <div className={styles.avatar}>
+                    {f.username[0].toUpperCase()}
+                  </div>
+                  <span>{f.username}</span>
+                  {selected.includes(f.id) && (
+                    <span className={styles.check}>✓</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        <div className={styles.actions}>
+          <button className={styles.cancelBtn} onClick={onClose}>
+            Cancel
+          </button>
+          <button className={styles.createBtn} onClick={handleSubmit}>
+            Create
+          </button>
+        </div>
       </div>
     </div>
   );

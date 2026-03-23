@@ -1,0 +1,154 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background-color: var(--chat-background);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  width: 460px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary);
+  padding: 10px 20px;
+  border-radius: 999px;
+  width: fit-content;
+  align-self: center;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.input {
+  background: var(--input-background);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: var(--secondary);
+}
+
+.input:focus {
+  border-color: var(--primary);
+}
+
+.error {
+  color: #f87171;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.friendList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.friendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  color: var(--foreground);
+  background-color: var(--secondary-background);
+  border: 1px solid var(--border);
+  margin: 0;
+}
+
+.friendItem:hover {
+  background: var(--secondary-hover);
+}
+
+.friendItem.selected {
+  background: #2e1f5e;
+  color: #fff;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.check {
+  margin-left: auto;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.cancelBtn {
+  background: var(--chat-background);
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  border-radius: 10px;
+  padding: 10px 22px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.cancelBtn:hover {
+  background: var(--secondary-hover);
+}
+
+.createBtn {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.createBtn:hover {
+  background-color: var(--primary-hover);
+}
