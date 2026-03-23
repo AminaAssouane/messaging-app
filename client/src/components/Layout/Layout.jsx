@@ -11,13 +11,12 @@ import swan from "../../assets/icons/swan.svg";
 export default function Layout() {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
-  const [showCreateGroup, setShowCreateGroup] = useState(false); // 👈 new
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(atob(token.split(".")[1]));
 
-  // Extract friends from existing conversations (people you already DM)
-  const friends = conversations // 👈 new
+  const friends = conversations
     .filter((c) => c.type === "PRIVATE")
     .map((c) => c.members.find((m) => m.user.id !== user.userId)?.user)
     .filter(Boolean);
@@ -56,12 +55,11 @@ export default function Layout() {
           selectedConversation={selectedConversation}
         />
 
-        {/* 👇 new */}
         <button
           className={styles.createGroupBtn}
           onClick={() => setShowCreateGroup(true)}
         >
-          ＋ New Group
+          ＋
         </button>
 
         {showCreateGroup && (
@@ -73,7 +71,6 @@ export default function Layout() {
             }
           />
         )}
-        {/* 👆 new */}
 
         <ThemeSwitcher className={styles.themeSwitcher} />
         <div className={styles.logout}>

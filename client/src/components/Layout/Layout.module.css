@@ -90,3 +90,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.createGroupBtn {
+  background-color: var(--chat-background);
+  box-shadow: none;
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  height: 40px;
+  margin: 0px 10px 20px 10px;
+  border-radius: 16px;
+  font-size: 20px;
+}
+
+.createGroupBtn:hover {
+  cursor: pointer;
+  background-color: var(--secondary-hover);
+}
