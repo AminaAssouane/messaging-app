@@ -2,17 +2,25 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import MessageList from "../../components/MessageList/MessageList";
 import MessageInput from "../../components/MessageInput/MessageInput";
+import InviteMemberModal from "../../components/InviteMemberModal/InviteMemberModal";
 import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
 import styles from "./Chat.module.css";
-import { UserRound, UsersRound } from "lucide-react";
+import { UserRound, UsersRound, UserPlus } from "lucide-react";
 
 export default function Chat() {
   const { conversations, selectedConversation, setSelectedConversation } =
     useOutletContext();
   const [messages, setMessages] = useState([]);
+  const [showInvite, setShowInvite] = useState(false);
 
   const token = localStorage.getItem("token");
+  const user = JSON.parse(atob(token.split(".")[1]));
+
+  const friends = conversations
+    .filter((c) => c.type === "PRIVATE")
+    .map((c) => c.members.find((m) => m.user.id !== user.userId)?.user)
+    .filter(Boolean);
 
   useEffect(() => {
     if (!conversations.length) return;
@@ -84,9 +92,26 @@ export default function Chat() {
         <div className={styles.name}>
           {selectedConversation?.name || "Private Chat"}
         </div>
+
+        {selectedConversation?.type === "GROUP" && (
+          <UserPlus
+            size={18}
+            className={styles.inviteBtn}
+            onClick={() => setShowInvite(true)}
+          />
+        )}
       </div>
+
       <MessageList messages={messages} />
       <MessageInput onSend={sendMessage} />
+
+      {showInvite && (
+        <InviteMemberModal
+          groupId={selectedConversation.id}
+          friends={friends}
+          onClose={() => setShowInvite(false)}
+        />
+      )}
     </main>
   );
 }
