@@ -97,7 +97,7 @@
   border: 1px solid var(--border);
   color: var(--secondary);
   height: 40px;
-  margin: 0px 10px 20px 10px;
+  margin: 0 10px 20px 10px;
   border-radius: 16px;
   font-size: 20px;
 }

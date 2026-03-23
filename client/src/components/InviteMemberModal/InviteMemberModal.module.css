@@ -41,7 +41,7 @@
   color: var(--foreground);
   background-color: var(--secondary-background);
   border: 1px solid var(--border);
-  margin: 0;
+  margin: 0 0 10px 0;
 }
 
 .friend:hover {
