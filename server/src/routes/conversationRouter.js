@@ -18,5 +18,9 @@ conversationRouter.post(
   authMiddleware,
   conversationController.postMessages,
 );
-
+conversationRouter.post(
+  "/:id/read",
+  authMiddleware,
+  conversationController.markRead,
+);
 module.exports = conversationRouter;

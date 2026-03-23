@@ -45,7 +45,7 @@ async function getConversations(req, res) {
 
 async function getMessages(req, res) {
   try {
-    const conversationId = Number(req.params.id);
+    const conversationId = parseInt(req.params.id);
 
     const messages = await prisma.message.findMany({
       where: {
@@ -74,7 +74,7 @@ async function getMessages(req, res) {
 
 async function postMessages(req, res) {
   try {
-    const conversationId = Number(req.params.id);
+    const conversationId = parseInt(req.params.id);
     const senderId = req.user.userId;
     const { content } = req.body;
 
@@ -114,4 +114,17 @@ async function postMessages(req, res) {
   }
 }
 
-module.exports = { getConversations, getMessages, postMessages };
+async function markRead(req, res) {
+  const conversationId = parseInt(req.params.id);
+  const userId = req.user.userId;
+
+  await prisma.conversationRead.upsert({
+    where: { conversationId_userId: { conversationId, userId } },
+    update: { lastReadAt: new Date() },
+    create: { conversationId, userId, lastReadAt: new Date() },
+  });
+
+  res.json({ ok: true });
+}
+
+module.exports = { getConversations, getMessages, postMessages, markRead };
