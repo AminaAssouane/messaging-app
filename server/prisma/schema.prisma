@@ -22,7 +22,7 @@ model User {
   memberships ConversationMember[]
   sentRequests     FriendRequest[] @relation("sentRequests")
   receivedRequests FriendRequest[] @relation("receivedRequests")
-
+  reads            ConversationRead[] 
 
   createdAt DateTime @default(now())
 }
@@ -36,7 +36,8 @@ model Conversation {
 
   members       ConversationMember[]
   messages      Message[]
-
+  reads         ConversationRead[] 
+  
   createdAt     DateTime @default(now())
 }
 
@@ -74,6 +75,18 @@ model FriendRequest {
   createdAt DateTime @default(now())
 
   @@unique([senderId, receiverId])
+}
+
+model ConversationRead {
+  id             Int      @id @default(autoincrement())
+  conversationId Int
+  userId         Int
+  lastReadAt     DateTime @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
+
+  @@unique([conversationId, userId])
 }
 
 enum ConversationType {
