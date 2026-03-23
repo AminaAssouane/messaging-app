@@ -1,0 +1,76 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background-color: var(--chat-background);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  width: 460px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary);
+  padding: 10px 20px;
+  border-radius: 999px;
+  width: fit-content;
+  align-self: center;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 16px;
+  color: var(--foreground);
+  background-color: var(--secondary-background);
+  border: 1px solid var(--border);
+  margin: 0;
+}
+
+.friend:hover {
+  background: var(--secondary-hover);
+}
+
+.addUserBtn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 5px;
+}
+
+.addUserBtn:hover {
+  cursor: pointer;
+  background-color: var(--primary-hover);
+}
+
+.closeBtn {
+  width: fit-content;
+  align-self: center;
+  padding: 5px 20px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  background-color: var(--secondary-background);
+  font-size: 16px;
+}
+
+.closeBtn:hover {
+  cursor: pointer;
+  background-color: var(--secondary-hover);
+}
