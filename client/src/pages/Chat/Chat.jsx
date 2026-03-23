@@ -95,7 +95,6 @@ export default function Chat() {
 
         {selectedConversation?.type === "GROUP" && (
           <UserPlus
-            size={18}
             className={styles.inviteBtn}
             onClick={() => setShowInvite(true)}
           />

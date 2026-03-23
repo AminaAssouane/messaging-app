@@ -32,3 +32,20 @@
   justify-content: center;
   font-weight: bold;
 }
+
+.inviteBtn {
+  margin-left: auto;
+
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+}
+
+.inviteBtn:hover {
+  background-color: var(--primary-hover);
+}
