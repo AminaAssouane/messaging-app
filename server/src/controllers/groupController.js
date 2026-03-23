@@ -44,9 +44,10 @@ async function createGroup(req, res) {
 }
 
 async function inviteMember(req, res) {
-  const conversationId = req.params.id;
+  const conversationId = parseInt(req.params.id);
   const { userId: invitedUserId } = req.body;
   const requesterId = req.user.userId;
+  const parsedInvitedUserId = parseInt(invitedUserId);
 
   try {
     const requester = await requireRole(
@@ -58,13 +59,13 @@ async function inviteMember(req, res) {
     if (!requester) return res.status(403).json({ error: "Not authorized" });
 
     const existing = await prisma.conversationMember.findFirst({
-      where: { conversationId, userId: invitedUserId },
+      where: { conversationId, userId: parsedInvitedUserId },
     });
     if (existing)
       return res.status(400).json({ error: "User is already a member" });
 
     const newMember = await prisma.conversationMember.create({
-      data: { conversationId, userId: invitedUserId, role: "MEMBER" },
+      data: { conversationId, userId: parsedInvitedUserId, role: "MEMBER" },
     });
 
     res.status(201).json(newMember);

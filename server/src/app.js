@@ -21,7 +21,7 @@ app.use("/auth", authRouter);
 app.use("/conversations", conversationRouter);
 app.use("/friends", friendRouter);
 app.use("/users", userRouter);
-app.use("/group", groupRouter);
+app.use("/groups", groupRouter);
 
 const io = new Server(server, {
   cors: {
