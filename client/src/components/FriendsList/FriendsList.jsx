@@ -24,11 +24,13 @@ export default function FriendsList() {
     );
 
   return (
-    <div className="friends-list">
-      <h3>Friends</h3>
+    <div className={styles.friendsList}>
+      <h3 className={styles.title}>Friends</h3>
       <ul>
         {friends.map((f) => (
-          <li key={f.id}>{f.username}</li>
+          <li key={f.id} className={styles.friendsItem}>
+            {f.username}
+          </li>
         ))}
       </ul>
     </div>

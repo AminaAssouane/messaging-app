@@ -1,3 +1,4 @@
+/* No Friends */
 .noFriends {
   margin-top: 80px;
   display: flex;
@@ -25,4 +26,39 @@
 .noFriends p:nth-of-type(2) {
   color: var(--no-friends-second);
   font-size: 12px;
+}
+
+/* Friends list */
+
+.friendsList {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.friendsList .title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary);
+  padding: 10px 20px;
+  border-radius: 999px;
+  width: fit-content;
+  align-self: center;
+}
+
+.friendsItem {
+  padding: 8px 12px;
+  border-radius: 16px;
+  color: var(--foreground);
+  background-color: var(--secondary-background);
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.friendsItem:hover {
+  background-color: var(--secondary-hover);
 }

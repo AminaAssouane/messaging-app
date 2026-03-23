@@ -56,13 +56,21 @@ li {
 }
 
 li {
-  margin: 10px;
+  margin: 10px 0px;
 }
 
 .userItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--secondary-background);
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.userItem:hover {
+  background-color: var(--secondary-hover);
 }
 
 .userPlusIcon {
