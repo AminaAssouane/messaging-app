@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 import MessageList from "../../components/MessageList/MessageList";
 import MessageInput from "../../components/MessageInput/MessageInput";
@@ -105,6 +105,21 @@ export default function Chat() {
     return () => getSocket().off("receive_message", handleReceive);
   }, [selectedConversation]);
 
+  // Typing indicator: auto-clears after 3 seconds of silence
+  useEffect(() => {
+    function handleTyping({ userId, conversationId }) {
+      setTypingUsers((prev) => ({ ...prev, [conversationId]: userId }));
+      if (typingTimers.current[conversationId]) {
+        clearTimeout(typingTimers.current[conversationId]);
+      }
+      typingTimers.current[conversationId] = setTimeout(() => {
+        setTypingUsers((prev) => ({ ...prev, [conversationId]: null }));
+      }, 3000);
+    }
+    getSocket().on("user_typing", handleTyping);
+    return () => getSocket().off("user_typing", handleTyping);
+  }, []);
+
   async function sendMessage(content) {
     if (!selectedConversation || !content) return;
     try {
@@ -118,6 +133,19 @@ export default function Chat() {
       console.error("Failed to send message", error);
     }
   }
+
+  function handleTyping() {
+    if (!selectedConversation) return;
+    getSocket().emit("typing", { conversationId: selectedConversation.id });
+  }
+
+  // Resolve who is typing in the current conversation to a username
+  const typingUserId = typingUsers[selectedConversation?.id];
+  const typingUserName = typingUserId
+    ? conversations
+        .flatMap((c) => c.members)
+        .find((m) => m.user.id === typingUserId)?.user.username
+    : null;
 
   useEffect(() => {
     return () => disconnectSocket();
@@ -146,7 +174,10 @@ export default function Chat() {
       </div>
 
       <MessageList messages={messages} />
-      <MessageInput onSend={sendMessage} />
+      <div className={styles.typingIndicator}>
+        {typingUserName && `${typingUserName} is typing...`}
+      </div>
+      <MessageInput onSend={sendMessage} onTyping={handleTyping} />
 
       {showInvite && (
         <InviteMemberModal

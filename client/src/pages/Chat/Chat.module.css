@@ -48,3 +48,11 @@
 .inviteBtn:hover {
   background-color: var(--primary-hover);
 }
+
+.typingIndicator {
+  height: 20px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-style: italic;
+  color: #94a3b8;
+}
