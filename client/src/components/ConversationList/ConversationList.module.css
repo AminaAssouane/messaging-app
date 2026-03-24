@@ -5,6 +5,8 @@
   border-top: 1px solid var(--border);
   padding: 20px 0px;
   flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .conversationList .title {
@@ -107,4 +109,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 2px;
+}
+
+.conversationList::-webkit-scrollbar {
+  width: 7px;
+}
+.conversationList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.conversationList::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 999px;
 }
