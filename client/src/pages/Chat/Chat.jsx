@@ -9,10 +9,17 @@ import styles from "./Chat.module.css";
 import { UserRound, UsersRound, UserPlus } from "lucide-react";
 
 export default function Chat() {
-  const { conversations, selectedConversation, setSelectedConversation } =
-    useOutletContext();
+  const {
+    conversations,
+    selectedConversation,
+    setSelectedConversation,
+    setConversations,
+  } = useOutletContext();
+
   const [messages, setMessages] = useState([]);
   const [showInvite, setShowInvite] = useState(false);
+  const [typingUsers, setTypingUsers] = useState({});
+  const typingTimers = useRef({});
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(atob(token.split(".")[1]));
@@ -22,6 +29,7 @@ export default function Chat() {
     .map((c) => c.members.find((m) => m.user.id !== user.userId)?.user)
     .filter(Boolean);
 
+  // Default to global chat
   useEffect(() => {
     if (!conversations.length) return;
     const globalChat = conversations.find((conv) => conv.type === "GLOBAL");
@@ -30,6 +38,7 @@ export default function Chat() {
     }
   }, [conversations]);
 
+  // Fetch messages + mark as read when switching conversations
   useEffect(() => {
     if (!selectedConversation) return;
 
@@ -44,7 +53,27 @@ export default function Chat() {
         console.error("Failed to fetch messages:", error);
       }
     }
+
+    async function markAsRead() {
+      try {
+        await api.post(
+          `/conversations/${selectedConversation.id}/read`,
+          {},
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+        // Clear badge immediately without waiting for a refetch
+        setConversations((prev) =>
+          prev.map((c) =>
+            c.id === selectedConversation.id ? { ...c, unreadCount: 0 } : c,
+          ),
+        );
+      } catch (err) {
+        console.error("Failed to mark as read:", err);
+      }
+    }
+
     fetchMessages();
+    markAsRead();
 
     getSocket().emit("join_conversation", selectedConversation.id);
     return () =>
