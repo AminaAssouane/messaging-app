@@ -30,6 +30,18 @@ async function getConversations(req, res) {
             },
           },
         },
+        messages: {
+          orderBy: { createdAt: "desc" },
+          take: 1,
+          include: {
+            sender: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         lastMessageAt: "desc",
@@ -141,6 +153,7 @@ async function getUnread(req, res) {
   const reads = await prisma.conversationRead.findMany({
     where: { userId, conversationId: { in: conversationIds } },
   });
+
   const unreadCounts = await Promise.all(
     conversationIds.map(async (conversationId) => {
       const read = reads.find((r) => r.conversationId === conversationId);
