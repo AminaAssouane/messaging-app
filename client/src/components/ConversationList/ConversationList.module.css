@@ -24,6 +24,7 @@
   margin: 0 10px;
   border-radius: 12px;
   cursor: pointer;
+  min-width: 0;
 }
 
 .conversation.active {
@@ -47,4 +48,63 @@
 .conversation .name {
   font-size: 14px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.avatarWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dotOnline,
+.dotOffline {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--chat-background);
+}
+
+.dotOnline {
+  background: #22c55e;
+}
+.dotOffline {
+  background: #94a3b8;
+}
+
+.info {
+  flex: 1;
+  width: 0;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 0;
+}
+
+.badge {
+  background: #ef4444;
+  color: white;
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+
+.preview {
+  font-size: 12px;
+  color: var(--secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
 }

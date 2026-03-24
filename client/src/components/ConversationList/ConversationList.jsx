@@ -24,7 +24,6 @@ export default function ConversationList({
         const isOnline = otherUser ? onlineUsers?.has(otherUser.id) : false;
         const displayName = conv.name || otherUser?.username || "Private Chat";
 
-        // Last message — requires backend to include messages in the response
         const lastMessage = conv.messages?.[conv.messages.length - 1];
 
         return (
@@ -36,7 +35,6 @@ export default function ConversationList({
               onSelect(conv);
             }}
           >
-            {/* Avatar with online dot */}
             <div className={styles.avatarWrapper}>
               <div className={styles.avatar}>
                 {conv.type === "PRIVATE" ? (
@@ -52,7 +50,6 @@ export default function ConversationList({
               )}
             </div>
 
-            {/* Name + last message preview */}
             <div className={styles.info}>
               <div className={styles.topRow}>
                 <span className={styles.name}>{displayName}</span>
