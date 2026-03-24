@@ -173,7 +173,7 @@ export default function Chat() {
         )}
       </div>
 
-      <MessageList messages={messages} />
+      <MessageList messages={messages} currentUserId={user.userId} />
       <div className={styles.typingIndicator}>
         {typingUserName && `${typingUserName} is typing...`}
       </div>
