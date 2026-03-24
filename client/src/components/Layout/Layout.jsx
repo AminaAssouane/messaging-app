@@ -52,6 +52,30 @@ export default function Layout() {
     fetchConversations();
   }, [token]);
 
+  // Listen for presence events
+  useEffect(() => {
+    const socket = getSocket();
+
+    socket.on("online_users", (userIds) => {
+      setOnlineUsers(new Set(userIds));
+    });
+    socket.on("user_online", (userId) => {
+      setOnlineUsers((prev) => new Set([...prev, userId]));
+    });
+    socket.on("user_offline", (userId) => {
+      setOnlineUsers((prev) => {
+        const next = new Set(prev);
+        next.delete(userId);
+        return next;
+      });
+    });
+    return () => {
+      socket.off("online_users");
+      socket.off("user_online");
+      socket.off("user_offline");
+    };
+  }, []);
+
   return (
     <div className={styles.layout}>
       <aside className={styles.sideBar}>
@@ -72,6 +96,8 @@ export default function Layout() {
           conversations={conversations}
           onSelect={setSelectedConversation}
           selectedConversation={selectedConversation}
+          onlineUsers={onlineUsers}
+          currentUserId={user.userId}
         />
 
         <button
