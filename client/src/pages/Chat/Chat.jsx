@@ -80,10 +80,25 @@ export default function Chat() {
       getSocket().emit("leave_conversation", selectedConversation.id);
   }, [selectedConversation, token]);
 
+  // Receive messages: if it's for another conversation, bump its badge
   useEffect(() => {
-    function handleReceive(message) {
+    async function handleReceive(message) {
       if (message.conversationId === selectedConversation?.id) {
         setMessages((prev) => [...prev, message]);
+        // We're already looking at it, so mark as read silently
+        await api.post(
+          `/conversations/${message.conversationId}/read`,
+          {},
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      } else {
+        setConversations((prev) =>
+          prev.map((c) =>
+            c.id === message.conversationId
+              ? { ...c, unreadCount: (c.unreadCount || 0) + 1 }
+              : c,
+          ),
+        );
       }
     }
     getSocket().on("receive_message", handleReceive);
