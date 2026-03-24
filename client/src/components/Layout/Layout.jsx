@@ -4,6 +4,7 @@ import ConversationList from "../ConversationList/ConversationList";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import Logout from "../Logout/Logout";
 import CreateGroupModal from "../CreateGroupModal/CreateGroupModal";
+import { getSocket } from "../../services/socket";
 import api from "../../services/api";
 import styles from "./Layout.module.css";
 import swan from "../../assets/icons/swan.svg";
@@ -12,6 +13,7 @@ export default function Layout() {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState(new Set());
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(atob(token.split(".")[1]));
@@ -21,13 +23,30 @@ export default function Layout() {
     .map((c) => c.members.find((m) => m.user.id !== user.userId)?.user)
     .filter(Boolean);
 
+  // Fetch conversations + merge unread counts in one go
   useEffect(() => {
     async function fetchConversations() {
       try {
-        const res = await api.get("/conversations");
-        setConversations(res.data);
-      } catch (error) {
-        console.error("Failed to fetch conversations:", error);
+        const [convRes, unreadRes] = await Promise.all([
+          api.get("/conversations"),
+          api.get("/conversations/unread"),
+        ]);
+
+        const unreadMap = Object.fromEntries(
+          unreadRes.data.map(({ conversationId, count }) => [
+            conversationId,
+            count,
+          ]),
+        );
+
+        setConversations(
+          convRes.data.map((c) => ({
+            ...c,
+            unreadCount: unreadMap[c.id] || 0,
+          })),
+        );
+      } catch (err) {
+        console.error("Failed to fetch conversations:", err);
       }
     }
     fetchConversations();
@@ -89,6 +108,7 @@ export default function Layout() {
           conversations,
           selectedConversation,
           setSelectedConversation,
+          setConversations,
         }}
       />
     </div>
