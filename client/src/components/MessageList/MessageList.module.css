@@ -50,7 +50,7 @@
 /* ── Own messages ── */
 .ownWrapper {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 6px;
   max-width: 65%;
 }
@@ -77,12 +77,12 @@
   font-size: 12px;
   font-weight: 600;
   color: var(--secondary);
-  padding-left: 4px;
+  padding-left: 60px;
 }
 
 .otherRow {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 6px;
 }
 
