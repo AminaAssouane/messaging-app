@@ -9,6 +9,7 @@ import Login from "./pages/Login/Login.jsx";
 import Chat from "./pages/Chat/Chat.jsx";
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import FriendsPage from "./pages/FriendsPage/FriendsPage.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
 import Layout from "./components/Layout/Layout.jsx";
 import FriendsList from "./components/FriendsList/FriendsList.jsx";
 import FriendRequests from "./components/FriendRequests/FriendRequests.jsx";
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
           { path: "requests", element: <FriendRequests /> },
         ],
       },
+      { path: "/profile", element: <Profile /> },
     ],
   },
 ]);
