@@ -72,6 +72,7 @@
 }
 
 .main .version {
+  margin-top: -3rem;
   align-self: center;
   background-color: var(--secondary-background);
   border: 1px solid var(--border);
@@ -124,14 +125,14 @@
   font-weight: 600;
 }
 
-.main .signUpBtn {
-  background-color: var(--primary);
+.main .guestUser {
+  background: linear-gradient(to right, #c87035, #d21fbe, #1356ea);
   border: none;
   color: white;
 }
 
-.main .signUpBtn:hover {
-  background-color: var(--primary-hover);
+.main .guestUser:hover {
+  background: var(--primary-hover);
 }
 
 .main .loginBtn {
@@ -142,6 +143,17 @@
 
 .main .loginBtn:hover {
   background-color: var(--secondary-background);
+}
+
+.main .recommendation {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.main .signupLink {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--foreground);
 }
 
 /* FOOTER */

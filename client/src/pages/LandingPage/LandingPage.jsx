@@ -31,12 +31,18 @@ export default function LandingPage() {
           messaging for everyone, everywhere.
         </p>
         <div className={styles.buttons}>
-          <button className={styles.signUpBtn}>
-            <Link to="/register">Get Started Free</Link>
+          <button className={styles.guestUser}>
+            <Link to="/register">Guest User</Link>
           </button>
           <button className={styles.loginBtn}>
             <Link to="/login">Login</Link>
           </button>
+        </div>
+        <div className={`${styles.recommendation} secondary`}>
+          Don't have an account?{" "}
+          <Link to="/register" className={styles.signupLink}>
+            Sign up!
+          </Link>
         </div>
       </main>
       <footer className={`${styles.footer} secondary`}>

@@ -18,13 +18,13 @@ export default function ThemeSwitcher({ className }) {
   return (
     <div className={`${styles.themeSwitcher} ${className || ""}`}>
       <button
-        className={theme === "dark" ? styles.active : ""}
+        className={`${styles.moon} ${theme === "dark" ? styles.active : ""}`}
         onClick={() => handleTheme("dark")}
       >
         <Moon size={20} />
       </button>
       <button
-        className={theme === "light" ? styles.active : ""}
+        className={`${styles.sun} ${theme === "light" ? styles.active : ""}`}
         onClick={() => handleTheme("light")}
       >
         <Sun size={20} />

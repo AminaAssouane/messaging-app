@@ -10,7 +10,6 @@
 .themeSwitcher button {
   background: none;
   border: none;
-  border-radius: 999px;
   padding: 6px 10px;
   cursor: pointer;
   color: var(--foreground);
@@ -18,4 +17,12 @@
 
 .themeSwitcher button.active {
   background-color: var(--active-background);
+}
+
+.moon {
+  border-radius: 999px 0 0 999px;
+}
+
+.sun {
+  border-radius: 0 999px 999px 0;
 }
