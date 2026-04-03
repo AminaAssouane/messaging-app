@@ -13,7 +13,6 @@ export default function Login() {
     try {
       const res = await api.post("/auth/login", { username, password });
       localStorage.setItem("token", res.data.token);
-      console.log("Logged in!");
       navigate("/chat");
     } catch (error) {
       console.error(error.response?.data || error.message);

@@ -2,8 +2,25 @@ import styles from "./LandingPage.module.css";
 import swan from "../../assets/icons/swan.svg";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from "../../services/api";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const res = await api.post("/auth/login", {
+        username: "Guest User",
+        password: "guest",
+      });
+      localStorage.setItem("token", res.data.token);
+      navigate("/chat");
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+    }
+  }
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -31,8 +48,8 @@ export default function LandingPage() {
           messaging for everyone, everywhere.
         </p>
         <div className={styles.buttons}>
-          <button className={styles.guestUser}>
-            <Link to="/register">Guest User</Link>
+          <button className={styles.guestUser} onClick={handleSubmit}>
+            Guest User
           </button>
           <button className={styles.loginBtn}>
             <Link to="/login">Login</Link>
