@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import styles from "./Profile.module.css";
 import api from "../../services/api";
 import { ArrowBigLeft } from "lucide-react";
+import { ClipLoader } from "react-spinners";
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
@@ -23,7 +24,12 @@ export default function Profile() {
     fetchSelf();
   }, []);
 
-  if (!profile) return <div>Loading...</div>;
+  if (!profile)
+    return (
+      <div>
+        <ClipLoader color="#8e51ff" />
+      </div>
+    );
 
   return (
     <main className={styles.profilePage}>
