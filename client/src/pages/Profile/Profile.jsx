@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import styles from "./Profile.module.css";
 import api from "../../services/api";
+import { ArrowBigLeft } from "lucide-react";
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
   const token = localStorage.getItem("token");
+  const { onBack } = useOutletContext();
 
   useEffect(() => {
     async function fetchSelf() {
@@ -24,6 +27,9 @@ export default function Profile() {
 
   return (
     <main className={styles.profilePage}>
+      <button className={styles.backBtn} onClick={onBack}>
+        <ArrowBigLeft />
+      </button>
       <h2 className={styles.title}>Profile</h2>
       <div className={styles.infoWrapper}>
         <section className={styles.infoContainer}>

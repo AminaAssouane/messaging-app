@@ -57,3 +57,42 @@
   font-style: italic;
   color: #94a3b8;
 }
+
+.backBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 8px 0 0;
+  font-weight: 800;
+}
+
+.backBtn:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .main {
+    flex: 1;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .main .title {
+    padding: 12px 14px;
+  }
+
+  .main .name {
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .backBtn {
+    display: block;
+  }
+}

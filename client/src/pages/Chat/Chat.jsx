@@ -6,7 +6,7 @@ import InviteMemberModal from "../../components/InviteMemberModal/InviteMemberMo
 import { getSocket, disconnectSocket } from "../../services/socket";
 import api from "../../services/api";
 import styles from "./Chat.module.css";
-import { UserRound, UsersRound, UserPlus } from "lucide-react";
+import { UserRound, UsersRound, UserPlus, ArrowBigLeft } from "lucide-react";
 
 export default function Chat() {
   const {
@@ -14,6 +14,7 @@ export default function Chat() {
     selectedConversation,
     setSelectedConversation,
     setConversations,
+    onBack,
   } = useOutletContext();
 
   const [messages, setMessages] = useState([]);
@@ -154,6 +155,9 @@ export default function Chat() {
   return (
     <main className={styles.main}>
       <div className={styles.title}>
+        <button className={styles.backBtn} onClick={onBack}>
+          <ArrowBigLeft />
+        </button>
         <div className={styles.avatar}>
           {selectedConversation?.type === "PRIVATE" ? (
             <UserRound className={styles.icon} />

@@ -14,9 +14,15 @@ export default function Layout() {
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState(new Set());
+  const [showSidebar, setShowSidebar] = useState(true);
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(atob(token.split(".")[1]));
+
+  function handleSelectConversation(conv) {
+    setSelectedConversation(conv);
+    setShowSidebar(false);
+  }
 
   const friends = conversations
     .filter((c) => c.type === "PRIVATE")
@@ -78,23 +84,33 @@ export default function Layout() {
 
   return (
     <div className={styles.layout}>
-      <aside className={styles.sideBar}>
+      <aside
+        className={`${styles.sideBar} ${!showSidebar ? styles.hiddenOnMobile : ""}`}
+      >
         <div className={styles.title}>
           <img src={swan} alt="icon" className={styles.swan} />
           <div>Swan</div>
         </div>
         <div className={styles.btnsContainer}>
-          <Link to="/friends" className={styles.friendsTitle}>
+          <Link
+            to="/friends"
+            className={styles.friendsTitle}
+            onClick={() => setShowSidebar(false)}
+          >
             Friends
           </Link>
-          <Link to="/profile" className={styles.profileTitle}>
+          <Link
+            to="/profile"
+            className={styles.profileTitle}
+            onClick={() => setShowSidebar(false)}
+          >
             Profile
           </Link>
         </div>
 
         <ConversationList
           conversations={conversations}
-          onSelect={setSelectedConversation}
+          onSelect={handleSelectConversation}
           selectedConversation={selectedConversation}
           onlineUsers={onlineUsers}
           currentUserId={user.userId}
@@ -129,14 +145,19 @@ export default function Layout() {
         </div>
       </aside>
 
-      <Outlet
-        context={{
-          conversations,
-          selectedConversation,
-          setSelectedConversation,
-          setConversations,
-        }}
-      />
+      <div
+        className={`${styles.chatPanel} ${showSidebar ? styles.hiddenOnMobile : ""}`}
+      >
+        <Outlet
+          context={{
+            conversations,
+            selectedConversation,
+            setSelectedConversation,
+            setConversations,
+            onBack: () => setShowSidebar(true),
+          }}
+        />
+      </div>
     </div>
   );
 }

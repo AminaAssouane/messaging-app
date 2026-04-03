@@ -1,9 +1,9 @@
 .profilePage {
-  flex: 5;
+  flex: 1;
   background-color: var(--background);
   padding-top: 2rem;
-  min-height: 100vh;
-  width: auto;
+  min-height: 0;
+  width: 100%;
 }
 
 .title {
@@ -42,4 +42,29 @@ p:nth-child(2) {
   color: var(--foreground);
   margin-top: 0.4rem;
   font-size: 1.3rem;
+}
+
+.backBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 18px;
+  font-weight: 800;
+}
+
+.backBtn:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .infoContainer {
+    margin-top: 5rem;
+  }
+
+  .backBtn {
+    display: block;
+  }
 }
