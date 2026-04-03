@@ -41,4 +41,5 @@ p:nth-child(1) {
 p:nth-child(2) {
   color: var(--foreground);
   margin-top: 0.4rem;
+  font-size: 1.3rem;
 }

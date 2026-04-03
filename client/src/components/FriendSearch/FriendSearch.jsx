@@ -12,7 +12,7 @@ export default function FriendSearch() {
   async function handleSearch(e) {
     const val = e.target.value;
     setQuery(val);
-    if (val.trim().length < 2) return setResults([]);
+    if (val.trim().length < 1) return setResults([]);
     try {
       const { data } = await api.get(`/users/search?username=${val}`);
       setResults(data);

@@ -26,3 +26,10 @@
 .sun {
   border-radius: 0 999px 999px 0;
 }
+
+.moon,
+.sun {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
