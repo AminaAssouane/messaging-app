@@ -59,4 +59,8 @@
   .backBtn {
     display: block;
   }
+
+  .toggle {
+    width: 350px;
+  }
 }
