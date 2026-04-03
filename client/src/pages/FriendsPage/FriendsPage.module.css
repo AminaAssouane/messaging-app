@@ -63,4 +63,10 @@
   .toggle {
     width: 350px;
   }
+
+  .activeTab,
+  .tab {
+    padding: 10px 30px;
+    border-radius: 999px;
+  }
 }
