@@ -103,3 +103,9 @@
   cursor: pointer;
   background-color: var(--active-background);
 }
+
+@media (max-width: 600px) {
+  .friendRequest {
+    width: 350px;
+  }
+}
