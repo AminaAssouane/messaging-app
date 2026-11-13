@@ -10,13 +10,13 @@ Built with React, Node.js, Express, PostgreSQL, Prisma, and Socket.IO, Swan comb
 
 ## 📸 Screenshots
 
-|                  Conversations                  |                    Private Messaging                    |
-| :---------------------------------------------: | :-----------------------------------------------------: |
-| ![Conversations](screenshots/conversations.png) | ![Private Messaging](screenshots/private-messaging.png) |
+|                 Landing Page                  |               Profile               |
+| :-------------------------------------------: | :---------------------------------: |
+| ![Landing Page](screenshots/landing-page.png) | ![Profile](screenshots/profile.png) |
 
-|                 Global Chat                 |                     Group Conversations                     |
-| :-----------------------------------------: | :---------------------------------------------------------: |
-| ![Global Chat](screenshots/global-chat.png) | ![Group Conversations](screenshots/group-conversations.png) |
+|                 Global Chat                 |               Friends               |
+| :-----------------------------------------: | :---------------------------------: |
+| ![Global Chat](screenshots/global-chat.png) | ![Friends](screenshots/friends.png) |
 
 ## ✨ Features
 
@@ -157,7 +157,7 @@ I built Swan to deepen my understanding of real-time communication and full-stac
 
 The project gave me hands-on experience with WebSockets, authentication, relational database design, and managing different types of conversations in a single application.
 
-## 👩‍💻 Built By
+## 👩🏻‍💻 Built By
 
 **Amina Assouane**
 
