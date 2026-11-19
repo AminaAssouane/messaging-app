@@ -8,15 +8,20 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
+
+    setIsLoading(true);
+
     try {
       await api.post("/auth/register", {
         username,
@@ -26,6 +31,8 @@ export default function Register() {
       navigate("/login");
     } catch (error) {
       console.error(error.response?.data || error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -42,6 +49,7 @@ export default function Register() {
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            disabled={isLoading}
           />
           <label htmlFor="email">Email</label>
           <input
@@ -50,6 +58,7 @@ export default function Register() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoading}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -58,16 +67,20 @@ export default function Register() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading}
           />
-          <label htmlFor="password">Confirm Password</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
             id="confirmPassword"
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            disabled={isLoading}
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Loading..." : "Sign Up"}
+          </button>
         </form>
         <div className={styles.footer}>
           Already have an account? <a href="/login">Login</a>
