@@ -6,16 +6,21 @@ import styles from "./Login.module.css";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const res = await api.post("/auth/login", { username, password });
       localStorage.setItem("token", res.data.token);
       navigate("/chat");
     } catch (error) {
       console.error(error.response?.data || error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -32,6 +37,7 @@ export default function Login() {
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            disabled={isLoading}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -40,8 +46,11 @@ export default function Login() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading}
           />
-          <button type="submit">Login</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Loading..." : "Login"}
+          </button>
         </form>
         <div className={styles.footer}>
           Don't have an account? <a href="/register">Sign Up</a>
